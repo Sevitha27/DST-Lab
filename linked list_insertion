@@ -1,0 +1,168 @@
+#include<stdio.h>
+#include<stdlib.h>
+ 
+struct node
+{
+  int data;
+  struct node *link;
+};   
+ 
+void display();
+void create();
+void insert_begin();
+void insert_end();
+void insert_pos();
+ 
+struct node *head=NULL;
+ 
+void create()
+{
+  int c;
+    struct node *new,*ptr;
+    head=(struct node *) malloc(sizeof(struct node));
+    ptr=head;
+    printf("Enter element\n");
+    scanf("%d",&head->data);
+    while(1)
+    {
+        printf("Do you want to add another element(1/0)\n");
+        scanf("%d",&c);
+        if(c==1)
+        {
+            new=(struct node *) malloc(sizeof(struct node));
+            printf("Enter element\n");
+            scanf("%d",&new->data);
+            ptr->link = new;
+            ptr=new;
+        }
+        else
+        {
+            ptr->link=NULL;
+            break;
+        }
+    }
+
+   
+}
+
+void display()
+{
+  printf("Elements are ................\n");
+  struct node *ptr;
+  if(head==NULL)
+  {
+    printf("List is empty\n");
+    return;
+  }
+ 
+  else 
+  {
+    ptr=head;
+    while(ptr!=NULL)
+    {
+      printf("%d \n",ptr->data);
+      ptr=ptr->link;
+ 
+    }
+  }
+}
+ 
+void insert_begin()
+{
+  struct node *temp;
+  temp=(struct node *)malloc(sizeof(struct node));
+  printf("Enter the value to be inserted\n");
+  scanf("%d",&temp->data);
+  temp->link=NULL;
+  if(head==NULL)
+  head=temp;
+  else{
+    temp->link=head;
+    head=temp;
+  }
+}
+ 
+void insert_end()
+{
+  struct node *temp,*ptr;
+  temp=(struct node*)malloc(sizeof(struct node));
+  printf("Enter the value to be inserted\n");
+  scanf("%d",&temp->data);
+  temp->link=NULL;
+  if(head==NULL)
+  {
+    head=temp;
+  }
+  else
+  {
+   ptr=head;
+   while(ptr->link !=NULL)
+   {
+     ptr=ptr->link;
+   }
+   ptr->link=temp;
+  }
+}
+ 
+void insert_pos()
+{
+  int pos,i;
+  struct node *temp,*ptr;
+    printf("enter the position ");
+  scanf("%d",&pos);
+ 
+  temp=(struct node*)malloc(sizeof(struct node));
+  printf("enter the value to be inserted\n");
+  scanf("%d",&temp->data);
+  temp->link=NULL;
+  if(pos==0)
+  {
+       temp->link=head;
+    head=temp;
+ 
+  }
+else
+{
+  for(i=0,ptr=head;i<pos-1;i++)
+  {
+    ptr=ptr->link;
+ 
+  }
+  temp->link=ptr->link;
+  ptr->link=temp;
+}
+  
+}
+ 
+ 
+void main()
+{
+  int choice;
+  while(1)
+  {
+  
+    printf("\n 1. to insert at the beginning\n 2. to insert at the end\n 3.to insert at any position enter\n 4. to display\n 5.create 6. to exit\n");
+  printf("Entere your choice..........\n");
+  scanf("%d",&choice);
+  switch(choice)
+  {
+    
+    case 1:insert_begin();
+           break;
+    case 2:insert_end();
+           break;
+    case 3:insert_pos();
+           break;
+    case 4:display();
+           break; 
+    case 5:create();
+           break;                             
+    case 6:exit(0);
+           break;
+             
+    deafult:printf("Enter the correct choice\n");
+            break;
+ 
+  }
+  }
+}
