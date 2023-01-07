@@ -1,0 +1,189 @@
+#include<stdio.h>
+#include<stdlib.h>
+ 
+struct node
+{
+  int data;
+  struct node *link;
+};   
+ 
+void display();
+void create();
+void delete_end();   
+void delete_begin();
+void delete_pos();
+ 
+struct node *head=NULL;
+ 
+ 
+void display()
+{
+  printf("Elements are ................\n");
+  struct node *ptr;
+  if(head==NULL)
+  {
+    printf("List is empty\n");
+    return;
+  }
+ 
+  else 
+  {
+    ptr=head;
+    while(ptr!=NULL)
+    {
+      printf("%d \t",ptr->data);
+      ptr=ptr->link;
+ 
+    }
+  }
+}
+ 
+ void delete_begin()
+ {
+   struct node *ptr;
+   if(head==NULL)
+   {
+     printf("List is empty\n");
+     return;
+   }
+   else
+ {
+   ptr=head;
+   head=head->link;
+   printf("the element deleted from the list-%d\n",ptr->data);
+   free(ptr);
+ }
+ }
+ 
+ void delete_end()
+ {
+   struct node *ptr,*temp;
+   if(head==NULL)
+   {
+     printf("list is empty\n");
+     return;
+   }
+ 
+   else
+   {
+     ptr=head;
+     while(ptr->link!=NULL)
+     {
+       temp=ptr;
+       ptr=ptr->link;
+     }
+     temp->link=NULL;
+     printf("The elemennt deleted-%d",ptr->data);
+     free(ptr);
+   }
+ } 
+
+void create()
+{
+  int c;
+    struct node *new,*ptr;
+    head=(struct node *) malloc(sizeof(struct node));
+    ptr=head;
+    printf("Enter element\n");
+    scanf("%d",&head->data);
+    while(1)
+    {
+        printf("Do you want to add another element(1/0)\n");
+        scanf("%d",&c);
+        if(c==1)
+        {
+            new=(struct node *) malloc(sizeof(struct node));
+            printf("Enter element\n");
+            scanf("%d",&new->data);
+            ptr->link = new;
+            ptr=new;
+        }
+        else
+        {
+            ptr->link=NULL;
+            break;
+        }
+    }
+
+   
+} 
+
+ 
+ void delete_pos()
+ {
+   int i,pos;
+   struct node*ptr,*temp;
+   if(head==NULL)
+   {
+     printf("LIst is empty\n");
+     return;
+   }
+   else
+   {
+     printf("Enter the position to be deleteed\n");
+     scanf("%d",&pos);
+     if(pos==0)
+     {
+       ptr=head;
+       head=head->link;
+      printf("the item deleted from the list is-%d",ptr->data);
+      free(ptr);
+ 
+     }
+     else
+     {
+       ptr=head;
+       for(i=0;i<pos;i++)
+       {
+         temp=ptr;
+         ptr=ptr->link;
+         if(ptr==NULL)
+         {
+           printf("\n position not found\n");
+           return;
+         }
+      
+       }
+       temp->link=ptr->link;
+       printf("The value deleted is-%d",ptr->data);
+       free(ptr);
+     }
+ 
+   }
+ }
+ 
+ 
+ 
+ 
+ 
+void main()
+{
+  int choice;
+  while(1)
+  {
+  
+    printf("\n 1.to create\n 2. to display\n 3. to delete beginning \n 4. to delete at end\n 5. delete at a given position\n6. to exit\n");
+  printf("Entere your choice..........\n");
+  scanf("%d",&choice);
+  switch(choice)
+  {
+    case 1:create();
+          break;    
+    
+    case 2:display(); 
+           break;
+    case 3:delete_begin();
+           break;
+    case 4: delete_end();
+            break;
+    case 5:delete_pos();
+           break;                           
+    case 6:exit(0);
+           break;
+             
+    deafult:printf("Enter the correct choice\n");
+            break;
+ 
+  }
+  }
+}
